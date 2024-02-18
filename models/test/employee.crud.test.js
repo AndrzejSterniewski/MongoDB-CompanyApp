@@ -63,7 +63,7 @@ describe('Employee', () => {
     });
 
     describe('Updating data', () => {
-        before(async () => {
+        beforeEach(async () => {
             const testEmpOne = new Employee({
                 firstName: 'John',
                 lastName: 'Doe',
@@ -99,10 +99,14 @@ describe('Employee', () => {
             const employees = await Employee.find({ firstName: 'Updated!' });
             expect(employees.length).to.be.equal(2);
         });
+
+        afterEach(async () => {
+            await Employee.deleteMany();
+        });
     });
 
     describe('Removing data', () => {
-        before(async () => {
+        beforeEach(async () => {
             const testEmpOne = new Employee({
                 firstName: 'John',
                 lastName: 'Doe',
@@ -117,15 +121,21 @@ describe('Employee', () => {
             });
             await testEmpTwo.save();
         });
+
         it('should properly remove one document with "deleteOne" method', async () => {
             await Employee.deleteOne({ firstName: 'John' });
             const removeEmployee = await Employee.findOne({ firstName: 'John' });
             expect(removeEmployee).to.be.null;
         });
+
         it('should properly remove multiple documents with "deleteMany" method', async () => {
             await Employee.deleteMany();
             const employees = await Employee.find();
             expect(employees.length).to.be.equal(0);
+        });
+        
+        afterEach(async () => {
+            await Employee.deleteMany();
         });
     });
 });
