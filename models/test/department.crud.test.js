@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 describe('Department', () => {
     before(async () => {
         try {
-            await mongoose.connect('mongodb://localhost:27017/companyDBtest', {
+            // await mongoose.connect('mongodb://localhost:27017/companyDBtest', {
+            await mongoose.connect('mongodb://0.0.0.0/companyDBtest', {
                 useNewUrlParser: true,
                 useUnifiedTopology: true
             });

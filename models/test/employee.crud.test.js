@@ -87,7 +87,7 @@ describe('Employee', () => {
 
         it('should properly update one document with "save" method', async () => {
             const employee = await Employee.findOne({ firstName: 'John' });
-            employee.name = '=John=';
+            employee.firstName = '=John=';
             await employee.save();
 
             const updatedEmployee = await Employee.findOne({ firstName: '=John=' });
@@ -133,7 +133,7 @@ describe('Employee', () => {
             const employees = await Employee.find();
             expect(employees.length).to.be.equal(0);
         });
-        
+
         afterEach(async () => {
             await Employee.deleteMany();
         });
